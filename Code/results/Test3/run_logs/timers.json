@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1700430762",
+        "python_version": "3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0]",
+        "command_line_arguments": "/home/finntm/.local/bin/mlagents-learn --run-id=Test3",
+        "mlagents_version": "1.0.0",
+        "mlagents_envs_version": "1.0.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.1.0+cu121",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1700430788"
+    },
+    "total": 25.508825219003484,
+    "count": 1,
+    "self": 0.004303347028326243,
+    "children": {
+        "run_training.setup": {
+            "total": 0.012107050977647305,
+            "count": 1,
+            "self": 0.012107050977647305
+        },
+        "TrainerController.start_learning": {
+            "total": 25.49241482099751,
+            "count": 1,
+            "self": 0.00024528399808332324,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 25.49215930799255,
+                    "count": 1,
+                    "self": 25.49215930799255
+                },
+                "trainer_threads": {
+                    "total": 1.0220101103186607e-06,
+                    "count": 1,
+                    "self": 1.0220101103186607e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 9.206996764987707e-06,
+                    "count": 1,
+                    "self": 9.206996764987707e-06
+                }
+            }
+        }
+    }
+}
