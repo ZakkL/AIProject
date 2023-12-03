@@ -21,6 +21,8 @@ public class MoveToGoalAgent : Agent
         float moveZ = actions.ContinuousActions[1];
 
         float moveSpeed = 3f;
+        Vector3 pos = transform.localPosition + new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
+        transform.LookAt(pos);
         transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
     }
 
