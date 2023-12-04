@@ -56,8 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scenes/Wall.cs" />
-    <Compile Include="Assets/Scenes/Goal.cs" />
-    <Compile Include="Assets/Scenes/MoveToGoalAgent.cs" />
+    <Compile Include="Assets/Scenes/MoveToZoneAgent.cs" />
+    <Compile Include="Assets/Scenes/Breadcrumbs.cs" />
+    <Compile Include="Assets/Scenes/Zone2.cs" />
+    <Compile Include="Assets/Scenes/Zone1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

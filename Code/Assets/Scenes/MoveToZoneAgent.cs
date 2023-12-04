@@ -4,23 +4,26 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.VisualScripting;
 
-public class MoveToGoalAgent : Agent
+public class MoveToZoneAgent : Agent
 {
-    [SerializeField] private Transform targetTransform;
+    [SerializeField] private Transform targetZone1;
+    [SerializeField] private Transform targetZone2;
 
     public override void OnEpisodeBegin(){
-        transform.localPosition = new Vector3(0, 1, 0);
+        transform.localPosition = new Vector3(-13f, 1, 13f);
     }
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
+        sensor.AddObservation(targetZone1.localPosition);
+        sensor.AddObservation(targetZone2.localPosition);
     }
     public override void OnActionReceived(ActionBuffers actions) {
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
 
-        float moveSpeed = 3f;
+        float moveSpeed = 10f;
         Vector3 pos = transform.localPosition + new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
         transform.LookAt(pos);
         transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
@@ -33,14 +36,34 @@ public class MoveToGoalAgent : Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
     private void OnTriggerEnter(Collider other) {
-        if (other.TryGetComponent<Goal>(out Goal goal)) {
-            SetReward(+1f);
+        if (other.TryGetComponent<Zone1>(out Zone1 zone1)) {
+            float prob = Random.Range(0.0f, 1.0f);
+            float reward;
+            if(prob < 0.4f) {
+                reward = 10.0f;
+            } else {
+                reward = -10f;
+            }
+
+            SetReward(reward);
             EndEpisode();
+        }
+        if (other.TryGetComponent<Zone2>(out Zone2 zone2)) {
+            SetReward(2.0f);
+            EndEpisode();
+        }
+        if (other.TryGetComponent<Breadcrumbs>(out Breadcrumbs crumb)) {
+            AddReward(crumb.crumb);
+            other.gameObject.SetActive(false);
+            // Debug.Log("I hit a crumb!!!");
+            // EndEpisode();
         }
         if (other.TryGetComponent<Wall>(out Wall wall)) {
-            SetReward(-1f);
+            SetReward(-20f);
             EndEpisode();
         }
+
+
     }
 }
 
